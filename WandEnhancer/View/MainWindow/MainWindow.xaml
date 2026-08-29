@@ -376,24 +376,7 @@
 
                         <Grid>
 
-                            <TextBlock Margin="8 0 0 0"
-                                       FontSize="10"
-                                       Foreground="{DynamicResource AccentForeground}">
-
-                                <Hyperlink Foreground="{DynamicResource AccentForeground}">
-                                    <Run Text="{DynamicResource mw_source_code}"/>
-                                </Hyperlink>
-
-                                <LineBreak/>
-
-                                <Run Text="{DynamicResource mw_made_by}"/>
-
-                                <LineBreak/>
-
-                                <Run Foreground="{DynamicResource MutedForeground}"
-                                     Text="{DynamicResource mw_star_hint}"/>
-
-                            </TextBlock>
+                        
 
                         </Grid>
 
