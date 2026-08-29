@@ -13,7 +13,7 @@
     <s:String x:Key="mw_patch">Anwenden</s:String>
     <s:String x:Key="mw_restore">Wiederherstellen</s:String>
     <s:String x:Key="mw_source_code">Quellcode</s:String>
-    <s:String x:Key="mw_made_by">Mit ❤️ von k1tbyte erstellt</s:String>
+    <s:String x:Key="mw_made_by">Mit ❤️ von WhatTheReLerstellt</s:String>
     <s:String x:Key="mw_star_hint">Gib einen Stern, wenn dir das geholfen hat ;)</s:String>
     <s:String x:Key="mw_copy_logs">Logs in die Zwischenablage kopieren</s:String>
     <s:String x:Key="mw_export_logs">Logs in Datei exportieren</s:String>

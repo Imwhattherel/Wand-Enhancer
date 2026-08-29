@@ -21,7 +21,7 @@ namespace WandEnhancer.View.MainWindow
         private string _musicFilePath;
 
         private bool _isMuted;
-        private double _volumeBeforeMute = 0.10;
+        private double _volumeBeforeMute = 0.05;
 
         public MainWindow()
         {

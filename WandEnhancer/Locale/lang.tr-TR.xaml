@@ -13,7 +13,7 @@
     <s:String x:Key="mw_patch">Uygula</s:String>
     <s:String x:Key="mw_restore">Geri Yükle</s:String>
     <s:String x:Key="mw_source_code">Kaynak kodu</s:String>
-    <s:String x:Key="mw_made_by">k1tbyte tarafından ❤️ ile yapıldı</s:String>
+    <s:String x:Key="mw_made_by">WhatTheReLtarafından ❤️ ile yapıldı</s:String>
     <s:String x:Key="mw_star_hint">Yardımcı olduysa yıldız verin ;)</s:String>
     <s:String x:Key="mw_copy_logs">Günlükleri panoya kopyala</s:String>
     <s:String x:Key="mw_export_logs">Günlükleri dosyaya aktar</s:String>
