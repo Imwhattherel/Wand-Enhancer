@@ -56,14 +56,11 @@
                             VerticalAlignment="Center"
                             Margin="25 0 0 0">
 
-                    <Viewbox VerticalAlignment="Center"
-                             Width="32"
-                             Height="32">
-
-                        <Path Fill="White"
-                              Data="{StaticResource Logo}"/>
-
-                    </Viewbox>
+                    <Image VerticalAlignment="Center"
+                           Width="32"
+                           Height="32"
+                           Stretch="Uniform"
+                           Source="pack://siteoforigin:,,,/assets/icon.svg"/>
 
                     <TextBlock Foreground="{DynamicResource Foreground}"
                                FontWeight="SemiBold"
