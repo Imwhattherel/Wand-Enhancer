@@ -1,6 +1,6 @@
 using System;
 using System.IO;
-using System.Net.Http;
+using System.Net;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -29,6 +29,7 @@ namespace WandEnhancer.View.MainWindow
             VersionLabel.Text = Constants.Version.ToString();
             Instance = this;
 
+            // Start the music after the WPF window has loaded.
             Loaded += MainWindow_Loaded;
         }
 
@@ -42,7 +43,8 @@ namespace WandEnhancer.View.MainWindow
             try
             {
                 string musicDirectory = Path.Combine(
-                    Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                    Environment.GetFolderPath(
+                        Environment.SpecialFolder.LocalApplicationData),
                     "WandEnhancer"
                 );
 
@@ -53,21 +55,27 @@ namespace WandEnhancer.View.MainWindow
                     "music.mp3"
                 );
 
-                // Download the music if it isn't already cached.
-                if (!File.Exists(_musicFilePath))
+                // Download the MP3 only if it isn't already cached.
+                if (!File.Exists(_musicFilePath) ||
+                    new FileInfo(_musicFilePath).Length == 0)
                 {
-                    using (HttpClient client = new HttpClient())
+                    using (var client = new WebClient())
                     {
-                        byte[] musicData = await client.GetByteArrayAsync(MusicUrl);
-
-                        await File.WriteAllBytesAsync(
-                            _musicFilePath,
-                            musicData
+                        await client.DownloadFileTaskAsync(
+                            new Uri(MusicUrl),
+                            _musicFilePath
                         );
                     }
                 }
 
-                // Give WPF a local file instead of a remote URL.
+                // Make sure the downloaded file actually exists.
+                if (!File.Exists(_musicFilePath) ||
+                    new FileInfo(_musicFilePath).Length == 0)
+                {
+                    return;
+                }
+
+                // Use a LOCAL file for MediaElement.
                 BackgroundMusic.Source = new Uri(
                     _musicFilePath,
                     UriKind.Absolute
@@ -77,9 +85,9 @@ namespace WandEnhancer.View.MainWindow
             }
             catch (Exception ex)
             {
-                // Don't crash WandEnhancer if the music cannot be downloaded.
+                // Music failure should never prevent WandEnhancer from running.
                 System.Diagnostics.Debug.WriteLine(
-                    "Could not start background music: " + ex
+                    "Background music could not be started: " + ex
                 );
             }
         }
@@ -88,8 +96,17 @@ namespace WandEnhancer.View.MainWindow
             object sender,
             RoutedEventArgs e)
         {
-            BackgroundMusic.Position = TimeSpan.Zero;
-            BackgroundMusic.Play();
+            try
+            {
+                BackgroundMusic.Position = TimeSpan.Zero;
+                BackgroundMusic.Play();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(
+                    "Background music loop failed: " + ex
+                );
+            }
         }
 
         public void OpenPopup(
@@ -112,7 +129,14 @@ namespace WandEnhancer.View.MainWindow
             object sender,
             RoutedEventArgs e)
         {
-            BackgroundMusic.Stop();
+            try
+            {
+                BackgroundMusic.Stop();
+            }
+            catch
+            {
+                // Ignore media shutdown errors.
+            }
 
             Application.Current.Shutdown();
         }
