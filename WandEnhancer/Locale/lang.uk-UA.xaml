@@ -13,7 +13,7 @@
     <s:String x:Key="mw_patch">Застосувати</s:String>
     <s:String x:Key="mw_restore">Відновити</s:String>
     <s:String x:Key="mw_source_code">Вихідний код</s:String>
-    <s:String x:Key="mw_made_by">Зроблено з ❤️ by k1tbyte</s:String>
+    <s:String x:Key="mw_made_by">Зроблено з ❤️ by WhatTheReL</s:String>
     <s:String x:Key="mw_star_hint">Поставте зірку, якщо це було корисно ;)</s:String>
     <s:String x:Key="mw_copy_logs">Скопіювати логи до буфера обміну</s:String>
     <s:String x:Key="mw_export_logs">Експортувати логи у файл</s:String>
