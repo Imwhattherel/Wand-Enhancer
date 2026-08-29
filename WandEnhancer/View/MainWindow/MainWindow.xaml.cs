@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -12,17 +12,27 @@ namespace WandEnhancer.View.MainWindow
     {
         public static MainWindow Instance;
         public readonly MainWindowVm ViewModel;
-        
+
         public MainWindow()
         {
             InitializeComponent();
+
             this.ViewModel = new MainWindowVm(this);
             this.DataContext = ViewModel;
             VersionLabel.Text = Constants.Version.ToString();
             Instance = this;
 
+            // Start background music.
+            BackgroundMusic.Play();
         }
-        
+
+        private void BackgroundMusic_MediaEnded(object sender, RoutedEventArgs e)
+        {
+            // Restart the song when it finishes.
+            BackgroundMusic.Position = TimeSpan.Zero;
+            BackgroundMusic.Play();
+        }
+
         public void OpenPopup(FrameworkElement content, string title = null)
         {
             this.PopupHost.PopupContent = content;
@@ -37,6 +47,7 @@ namespace WandEnhancer.View.MainWindow
 
         private void OnClosing(object sender, RoutedEventArgs e)
         {
+            BackgroundMusic.Stop();
             Application.Current.Shutdown();
         }
 
