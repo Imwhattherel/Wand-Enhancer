@@ -16,28 +16,14 @@ namespace WandEnhancer.View.Popups
         private const string JavaScriptFileExtension = ".js";
 
         private readonly Action<PatchConfig> _onApply;
-
-        private readonly ObservableCollection<SelectedScript> _selectedScripts =
-            new ObservableCollection<SelectedScript>();
+        private readonly ObservableCollection<SelectedScript> _selectedScripts = new ObservableCollection<SelectedScript>();
 
         public PatchVectorsPopup(Action<PatchConfig> onApply)
         {
             _onApply = onApply;
-
             InitializeComponent();
-
             ScriptList.ItemsSource = _selectedScripts;
             UpdateScriptsEmptyState();
-
-            // Start the music when the popup opens.
-            BackgroundMusic.Play();
-        }
-
-        private void BackgroundMusic_MediaEnded(object sender, RoutedEventArgs e)
-        {
-            // Restart the song when it reaches the end.
-            BackgroundMusic.Position = TimeSpan.Zero;
-            BackgroundMusic.Play();
         }
 
         private void OnAddScriptClick(object sender, RoutedEventArgs e)
@@ -71,7 +57,6 @@ namespace WandEnhancer.View.Popups
         {
             var button = sender as Button;
             var script = button?.Tag as SelectedScript;
-
             if (script == null)
             {
                 return;
@@ -83,16 +68,13 @@ namespace WandEnhancer.View.Popups
 
         private void OnPatchButtonClick(object sender, RoutedEventArgs e)
         {
-            if (ActivateProBox.IsChecked != true &&
-                DisableUpdateBox.IsChecked != true &&
-                DevToolsHotkeyBox.IsChecked != true &&
-                RemoteWebPanelPreviewBox.IsChecked != true)
+            if (ActivateProBox.IsChecked != true && DisableUpdateBox.IsChecked != true &&
+                DevToolsHotkeyBox.IsChecked != true && RemoteWebPanelPreviewBox.IsChecked != true)
             {
                 return;
             }
-
+            
             var result = new HashSet<EPatchType>();
-
             if (ActivateProBox.IsChecked == true)
             {
                 result.Add(EPatchType.ActivatePro);
@@ -116,10 +98,7 @@ namespace WandEnhancer.View.Popups
             _onApply(new PatchConfig
             {
                 PatchTypes = result,
-                CustomScriptPaths = _selectedScripts
-                    .Select(script => script.FullPath)
-                    .ToList(),
-
+                CustomScriptPaths = _selectedScripts.Select(script => script.FullPath).ToList(),
                 AutoApplyPatches = false
             });
         }
@@ -127,12 +106,7 @@ namespace WandEnhancer.View.Popups
         private void AddScript(string path)
         {
             var fullPath = Path.GetFullPath(path);
-
-            if (_selectedScripts.Any(script =>
-                string.Equals(
-                    script.FullPath,
-                    fullPath,
-                    StringComparison.OrdinalIgnoreCase)))
+            if (_selectedScripts.Any(script => string.Equals(script.FullPath, fullPath, StringComparison.OrdinalIgnoreCase)))
             {
                 return;
             }
@@ -142,19 +116,12 @@ namespace WandEnhancer.View.Popups
 
         private static bool IsJavaScriptFile(string path)
         {
-            return File.Exists(path) &&
-                   string.Equals(
-                       Path.GetExtension(path),
-                       JavaScriptFileExtension,
-                       StringComparison.OrdinalIgnoreCase);
+            return File.Exists(path) && string.Equals(Path.GetExtension(path), JavaScriptFileExtension, StringComparison.OrdinalIgnoreCase);
         }
 
         private void UpdateScriptsEmptyState()
         {
-            NoScriptsText.Visibility =
-                _selectedScripts.Count == 0
-                    ? Visibility.Visible
-                    : Visibility.Collapsed;
+            NoScriptsText.Visibility = _selectedScripts.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private sealed class SelectedScript
