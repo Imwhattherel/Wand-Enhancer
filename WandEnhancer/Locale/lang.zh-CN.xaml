@@ -13,7 +13,7 @@
     <s:String x:Key="mw_patch">增强</s:String>
     <s:String x:Key="mw_restore">恢复</s:String>
     <s:String x:Key="mw_source_code">源代码</s:String>
-    <s:String x:Key="mw_made_by">由 k1tbyte 用 ❤️ 制作</s:String>
+    <s:String x:Key="mw_made_by">由 k1tbyte 用 ❤️ 相关内容</s:String>
     <s:String x:Key="mw_star_hint">如果这对您有帮助，请给个星标 ;)</s:String>
     <s:String x:Key="mw_copy_logs">复制日志到剪贴板</s:String>
     <s:String x:Key="mw_export_logs">将日志导出到文件</s:String>
