@@ -13,7 +13,7 @@
     <s:String x:Key="mw_patch">Aplicar</s:String>
     <s:String x:Key="mw_restore">Restaurar</s:String>
     <s:String x:Key="mw_source_code">Código fuente</s:String>
-    <s:String x:Key="mw_made_by">Hecho con ❤️ por k1tbyte</s:String>
+    <s:String x:Key="mw_made_by">Hecho con ❤️ por WhatTheReL</s:String>
     <s:String x:Key="mw_star_hint">Pon una estrella si te fue útil ;)</s:String>
     <s:String x:Key="mw_copy_logs">Copiar registros al portapapeles</s:String>
     <s:String x:Key="mw_export_logs">Exportar registros a un archivo</s:String>
