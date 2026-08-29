@@ -20,6 +20,9 @@ namespace WandEnhancer.View.MainWindow
 
         private string _musicFilePath;
 
+        private bool _isMuted;
+        private double _volumeBeforeMute = 0.25;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -81,6 +84,10 @@ namespace WandEnhancer.View.MainWindow
                     UriKind.Absolute
                 );
 
+                // Remember the starting volume so mute/unmute has
+                // something sensible to restore to.
+                _volumeBeforeMute = BackgroundMusic.Volume;
+
                 BackgroundMusic.Play();
             }
             catch (Exception ex)
@@ -105,6 +112,40 @@ namespace WandEnhancer.View.MainWindow
             {
                 System.Diagnostics.Debug.WriteLine(
                     "Background music loop failed: " + ex
+                );
+            }
+        }
+
+        private void MuteButton_Click(object sender, RoutedEventArgs e)
+        {
+            _isMuted = !_isMuted;
+
+            try
+            {
+                if (_isMuted)
+                {
+                    // Only remember a non-zero volume, so repeated
+                    // clicks don't collapse the remembered level to 0.
+                    if (BackgroundMusic.Volume > 0)
+                    {
+                        _volumeBeforeMute = BackgroundMusic.Volume;
+                    }
+
+                    BackgroundMusic.Volume = 0;
+                    MuteButton.Tag = FindResource("VolumeMuteIcon");
+                    MuteButton.ToolTip = "Unmute background music";
+                }
+                else
+                {
+                    BackgroundMusic.Volume = _volumeBeforeMute;
+                    MuteButton.Tag = FindResource("VolumeIcon");
+                    MuteButton.ToolTip = "Mute background music";
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(
+                    "Failed to toggle background music mute: " + ex
                 );
             }
         }
